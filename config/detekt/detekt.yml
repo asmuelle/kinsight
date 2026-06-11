@@ -1,0 +1,29 @@
+# KinSight detekt overrides. Defaults apply via buildUponDefaultConfig = true;
+# only deliberate deviations live here.
+
+style:
+  ReturnCount:
+    # The classifier and alert pipeline use guard-clause early returns by
+    # design (AGENTS.md: prefer early returns over deep nesting).
+    max: 6
+    excludeGuardClauses: true
+  MagicNumber:
+    # Named top-level/companion constants are the rule; Hearthlight token
+    # tables and similar value-table properties are fine as properties.
+    ignorePropertyDeclaration: true
+
+naming:
+  FunctionNaming:
+    ignoreAnnotated: ['Composable']
+
+complexity:
+  LongParameterList:
+    # CandidateEvent and Alert are flat, enumerated-field schema entities
+    # (DESIGN.md data model); their constructors legitimately list every field.
+    constructorThreshold: 10
+
+exceptions:
+  TooGenericExceptionCaught:
+    # Boundary catches are deliberate: the alert path must never silently fail
+    # (Invariant 3, fail-open) — it catches broadly and alerts anyway.
+    active: false

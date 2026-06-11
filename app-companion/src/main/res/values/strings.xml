@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Honest copy (Invariant 6): daytime living-area monitoring, best-effort
+     wellness alerts. RepoInvariantsTest greps this file in CI. -->
+<resources>
+    <string name="app_name">KinSight</string>
+    <string name="all_quiet_title">All quiet</string>
+    <string name="all_quiet_body">Daytime living-area monitoring is active. Best-effort wellness alerts will appear here.</string>
+    <string name="alert_title">Possible fall detected</string>
+    <string name="alert_body">The monitor saw a fall signature. Please check in now.</string>
+    <string name="acknowledge">I am on it</string>
+    <string name="acknowledged_title">Acknowledged</string>
+    <string name="acknowledged_body">You acknowledged this alert. Stay with them until you are sure they are safe.</string>
+    <string name="monitor_offline_banner">Monitor has been silent for over 15 minutes. Silence is a signal — please check in.</string>
+    <string name="run_alert_drill">Run alert drill</string>
+</resources>

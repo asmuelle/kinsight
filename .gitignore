@@ -1,0 +1,38 @@
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Android
+local.properties
+*.apk
+*.aab
+*.ap_
+captures/
+.cxx/
+
+# IDE
+.idea/
+*.iml
+.kotlin/
+
+# Secrets / config (never commit)
+google-services.json
+*.keystore
+*.jks
+.env
+.env.*
+
+# On-device ML model binaries (fetched at setup time, never committed)
+*.task
+*.tflite
+*.litertlm
+
+# OS
+.DS_Store
+
+# Gradle metadata
+.gradle/
+
+# Local tooling (provisioned JDK etc., never committed)
+.tooling/

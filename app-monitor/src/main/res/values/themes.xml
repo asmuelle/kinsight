@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Light-only by design (DESIGN.md "Hearthlight"): the elder-facing
+         screen must be readable at a glance from across a room. -->
+    <style name="Theme.KinSightMonitor" parent="android:Theme.Material.Light.NoActionBar" />
+</resources>
