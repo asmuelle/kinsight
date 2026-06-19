@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>KinSight — A caring eye that never leaves the room</title>
+<meta name="description" content="KinSight turns a spare phone into an all-local wellbeing monitor for an aging parent. Pose and routine analysis run on the device; only a plain-text alert ever leaves it — raw video never exists off the phone. Provable in airplane mode." />
+<meta name="theme-color" content="#FBF6EE" />
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23FBF6EE'/%3E%3Ccircle cx='16' cy='16' r='9.5' fill='none' stroke='%233E7C71' stroke-width='2.2'/%3E%3Ccircle cx='16' cy='16' r='3.4' fill='%23E0A23C'/%3E%3C/svg%3E" />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="KinSight — A caring eye that never leaves the room" />
+<meta property="og:description" content="Turn a spare phone into an all-local wellbeing monitor for an aging parent. On-device pose and routine analysis; only a text alert leaves the phone — raw video never does. Provable in airplane mode." />
+<meta property="og:site_name" content="KinSight" />
+<meta property="og:image" content="og.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="og.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    /* Warm porcelain / sage / honey — calm light-luxury home tech */
+    --porcelain:    #FBF6EE;
+    --porcelain-2:  #F4ECE0;
+    --cream-card:   #FFFCF7;
+    --ink:          #2B302E;
+    --ink-soft:     #5B635F;
+    --ink-faint:    #8A938E;
+    --hairline:     rgba(43, 48, 46, 0.10);
+    --hairline-strong: rgba(43, 48, 46, 0.18);
+
+    --sage:         #3E7C71;   /* calm, trustworthy primary */
+    --sage-deep:    #2E5D55;
+    --sage-soft:    rgba(62, 124, 113, 0.12);
+    --honey:        #E0A23C;   /* warm secondary accent */
+    --honey-soft:   rgba(224, 162, 60, 0.16);
+    --honey-deep:   #B97E1F;
+
+    --serif: "Fraunces", Georgia, "Times New Roman", serif;
+    --sans:  "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+    --text-eyebrow: 0.74rem;
+    --text-body:    clamp(1rem, 0.96rem + 0.25vw, 1.1rem);
+    --text-lead:    clamp(1.15rem, 1.02rem + 0.6vw, 1.45rem);
+    --text-h2:      clamp(1.9rem, 1.3rem + 2.6vw, 3.1rem);
+    --text-h3:      clamp(1.3rem, 1.1rem + 0.9vw, 1.6rem);
+    --text-hero:    clamp(2.6rem, 1.2rem + 6.2vw, 5.6rem);
+
+    --space-section: clamp(4.5rem, 3rem + 6vw, 9rem);
+    --maxw: 1120px;
+
+    --radius: 18px;
+    --radius-lg: 26px;
+
+    --dur: 600ms;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+    --shadow-soft: 0 18px 44px rgba(46, 93, 85, 0.10), 0 3px 10px rgba(43, 48, 46, 0.05);
+    --shadow-lift: 0 28px 64px rgba(46, 93, 85, 0.16), 0 6px 16px rgba(43, 48, 46, 0.06);
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  body {
+    margin: 0;
+    font-family: var(--sans);
+    font-size: var(--text-body);
+    line-height: 1.65;
+    color: var(--ink);
+    background:
+      radial-gradient(120% 80% at 82% -8%, rgba(224,162,60,0.10), transparent 52%),
+      radial-gradient(110% 70% at 8% 4%, rgba(62,124,113,0.08), transparent 48%),
+      linear-gradient(180deg, var(--porcelain) 0%, var(--porcelain) 60%, var(--porcelain-2) 100%);
+    background-attachment: fixed;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3 { font-family: var(--serif); font-weight: 500; line-height: 1.1; margin: 0; letter-spacing: -0.012em; }
+  p { margin: 0; }
+  a { color: inherit; text-decoration: none; }
+
+  .wrap { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: clamp(1.2rem, 5vw, 2.5rem); }
+
+  .eyebrow {
+    font-family: var(--sans);
+    font-size: var(--text-eyebrow);
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--sage);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6em;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 1.6em; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--sage));
+  }
+
+  .lead { font-size: var(--text-lead); color: var(--ink-soft); line-height: 1.55; }
+
+  /* ---------- Buttons ---------- */
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.6em;
+    font-family: var(--sans); font-weight: 600; font-size: 0.98rem;
+    padding: 0.85em 1.5em;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: transform var(--dur) var(--ease), background-color 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+    will-change: transform;
+  }
+  .btn-primary {
+    background: linear-gradient(180deg, #4C9183, var(--sage));
+    color: #F4FBF8;
+    box-shadow: 0 10px 28px rgba(62,124,113,0.30), inset 0 1px 0 rgba(255,255,255,0.28);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(62,124,113,0.40); }
+  .btn-primary:active { transform: translateY(0); }
+  .btn-ghost {
+    background: var(--cream-card);
+    color: var(--ink);
+    border-color: var(--hairline-strong);
+    box-shadow: 0 2px 8px rgba(43,48,46,0.04);
+  }
+  .btn-ghost:hover { border-color: var(--sage); color: var(--sage-deep); transform: translateY(-2px); }
+  .btn-ghost:active { transform: translateY(0); }
+
+  a:focus-visible, button:focus-visible, summary:focus-visible {
+    outline: 2px solid var(--sage);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  /* App store badge (non-functional) */
+  .badge {
+    display: inline-flex; align-items: center; gap: 0.75em;
+    padding: 0.7em 1.3em;
+    border-radius: 14px;
+    border: 1px solid var(--hairline-strong);
+    background: var(--cream-card);
+    color: var(--ink);
+    box-shadow: 0 4px 14px rgba(43,48,46,0.05);
+    transition: transform var(--dur) var(--ease), border-color 200ms ease, box-shadow 200ms ease;
+  }
+  .badge:hover { transform: translateY(-2px); border-color: var(--sage); box-shadow: var(--shadow-soft); }
+  .badge small { display: block; font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-faint); }
+  .badge strong { display: block; font-family: var(--serif); font-weight: 500; font-size: 1.05rem; }
+  .badge svg { color: var(--ink); }
+
+  /* ---------- Header ---------- */
+  header.site {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(14px);
+    background: linear-gradient(180deg, rgba(251,246,238,0.88), rgba(251,246,238,0.55));
+    border-bottom: 1px solid var(--hairline);
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding-block: 1rem; }
+  .brand { display: inline-flex; align-items: center; gap: 0.65em; font-family: var(--serif); font-size: 1.4rem; font-weight: 600; letter-spacing: 0.01em; color: var(--ink); }
+  .brand .mark { width: 30px; height: 30px; flex: none; }
+  .nav-links { display: flex; gap: 1.8rem; align-items: center; }
+  .nav-links a { font-size: 0.92rem; color: var(--ink-soft); transition: color 180ms ease; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta { font-weight: 600; color: var(--sage-deep) !important; }
+  @media (max-width: 760px) { .nav-links a:not(.nav-cta) { display: none; } }
+
+  /* ---------- Hero ---------- */
+  .hero { position: relative; padding-top: clamp(3rem, 2rem + 5vw, 6rem); padding-bottom: var(--space-section); overflow: hidden; }
+  .hero-grid {
+    position: relative; z-index: 2;
+    display: grid; grid-template-columns: 1.02fr 0.98fr; gap: clamp(2rem, 4vw, 4rem); align-items: center;
+  }
+  @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; } }
+
+  h1 { font-size: var(--text-hero); font-weight: 500; margin-bottom: 1.1rem; }
+  h1 em { font-style: italic; color: var(--sage); }
+  .hero p.lead { max-width: 40ch; margin-bottom: 2rem; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; margin-bottom: 2.2rem; }
+
+  /* airplane-mode proof chip */
+  .proof {
+    display: inline-flex; align-items: center; gap: 0.85em;
+    padding: 0.8em 1.15em;
+    border-radius: 14px;
+    background: var(--sage-soft);
+    border: 1px solid rgba(62,124,113,0.28);
+    max-width: 100%;
+  }
+  .proof svg { flex: none; color: var(--sage); }
+  .proof span { font-size: 0.9rem; color: var(--ink); line-height: 1.45; }
+  .proof b { color: var(--sage-deep); font-weight: 600; }
+
+  .hero-visual { position: relative; display: flex; justify-content: center; }
+  .scene {
+    position: relative;
+    width: min(460px, 100%);
+    aspect-ratio: 1 / 1.02;
+  }
+  .scene .glow {
+    position: absolute; inset: 4% 6% 8% 6%;
+    border-radius: 40px;
+    background: radial-gradient(circle at 50% 38%, rgba(224,162,60,0.18), transparent 62%);
+    filter: blur(10px);
+    z-index: 0;
+  }
+
+  /* ---------- Generic section ---------- */
+  section { position: relative; }
+  .section-pad { padding-block: var(--space-section); }
+  .section-head { max-width: 56ch; margin-bottom: clamp(2.5rem, 4vw, 4rem); }
+  .section-head h2 { font-size: var(--text-h2); margin-block: 0.6rem 1rem; }
+  .section-head p { color: var(--ink-soft); }
+
+  .divider { display: flex; justify-content: center; align-items: center; gap: 0.8rem; padding-block: 0.5rem; }
+  .divider .line { width: clamp(40px, 12vw, 130px); height: 1px; background: var(--hairline-strong); }
+  .divider .dot { width: 9px; height: 9px; border-radius: 50%; border: 2px solid var(--sage); position: relative; }
+  .divider .dot::after { content: ""; position: absolute; inset: 2.5px; border-radius: 50%; background: var(--honey); }
+
+  /* ---------- Promise band ---------- */
+  .promise {
+    background:
+      radial-gradient(80% 130% at 100% 0%, rgba(62,124,113,0.07), transparent 60%),
+      var(--porcelain-2);
+    border-block: 1px solid var(--hairline);
+  }
+  .promise-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
+  @media (max-width: 860px) { .promise-grid { grid-template-columns: 1fr; } }
+  .promise blockquote {
+    margin: 0; font-family: var(--serif); font-style: italic;
+    font-size: clamp(1.6rem, 1.1rem + 2.4vw, 2.55rem); line-height: 1.22; color: var(--ink);
+  }
+  .promise blockquote .hl { color: var(--sage); font-style: normal; }
+  .promise-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.3rem; }
+  .promise-list li { display: grid; grid-template-columns: auto 1fr; gap: 1rem; align-items: start; }
+  .promise-list .ico {
+    width: 44px; height: 44px; flex: none; border-radius: 13px;
+    display: grid; place-items: center;
+    background: var(--cream-card); border: 1px solid var(--hairline-strong);
+    box-shadow: 0 4px 12px rgba(43,48,46,0.05);
+  }
+  .promise-list .ico svg { color: var(--sage); }
+  .promise-list h3 { font-family: var(--sans); font-size: 1rem; font-weight: 600; margin-bottom: 0.2rem; }
+  .promise-list p { color: var(--ink-soft); font-size: 0.95rem; }
+
+  /* ---------- Features (bento) ---------- */
+  .bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1.2rem; }
+  .card {
+    position: relative;
+    background: linear-gradient(180deg, var(--cream-card), #FBF5EC);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.5rem, 2.5vw, 2.2rem);
+    box-shadow: var(--shadow-soft);
+    transition: transform var(--dur) var(--ease), border-color 250ms ease, box-shadow 250ms ease;
+    overflow: hidden;
+  }
+  .card:hover { transform: translateY(-4px); border-color: var(--hairline-strong); box-shadow: var(--shadow-lift); }
+  .card .kicker { font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--honey-deep); font-weight: 600; }
+  .card h3 { font-size: var(--text-h3); margin-block: 0.7rem 0.6rem; }
+  .card p { color: var(--ink-soft); font-size: 0.96rem; }
+  .card .visual { margin-top: 1.4rem; }
+
+  .col-3 { grid-column: span 3; }
+  .col-2 { grid-column: span 2; }
+  .col-4 { grid-column: span 4; }
+  .col-6 { grid-column: span 6; }
+  @media (max-width: 900px) { .col-3, .col-2, .col-4 { grid-column: span 3; } .bento { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 620px) { .bento { grid-template-columns: 1fr; } .col-3, .col-2, .col-4, .col-6 { grid-column: 1 / -1; } }
+
+  .card.accent { background: linear-gradient(150deg, rgba(224,162,60,0.14), var(--cream-card) 58%); border-color: rgba(224,162,60,0.28); }
+
+  /* chips */
+  .cluster { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.3rem; align-items: center; }
+  .chip { font-size: 0.8rem; padding: 0.35em 0.8em; border-radius: 999px; border: 1px solid var(--hairline-strong); color: var(--ink-soft); background: var(--cream-card); }
+  .chip.on { color: #F4FBF8; background: var(--sage); border-color: var(--sage); font-weight: 600; }
+  .chip.warn { color: var(--honey-deep); background: var(--honey-soft); border-color: rgba(224,162,60,0.4); font-weight: 600; }
+
+  /* routine bar visual */
+  .routine { margin-top: 1.4rem; display: grid; gap: 0.55rem; }
+  .routine-row { display: grid; grid-template-columns: 5.5rem 1fr; align-items: center; gap: 0.75rem; }
+  .routine-row span { font-size: 0.78rem; color: var(--ink-faint); }
+  .routine-track { height: 10px; border-radius: 999px; background: rgba(43,48,46,0.06); position: relative; overflow: hidden; }
+  .routine-fill { position: absolute; top: 0; bottom: 0; left: 0; border-radius: 999px; background: linear-gradient(90deg, rgba(62,124,113,0.5), var(--sage)); }
+  .routine-fill.low { background: linear-gradient(90deg, rgba(224,162,60,0.5), var(--honey)); }
+
+  /* alert preview visual */
+  .alert-prev {
+    margin-top: 1.4rem; display: grid; gap: 0.7rem;
+    background: var(--porcelain); border: 1px solid var(--hairline);
+    border-radius: 16px; padding: 1rem 1.1rem;
+  }
+  .alert-line { display: grid; grid-template-columns: auto 1fr; gap: 0.7rem; align-items: center; font-size: 0.88rem; color: var(--ink); }
+  .alert-line .pip { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+  .alert-line .pip.s { background: var(--sage); }
+  .alert-line .pip.h { background: var(--honey); }
+  .alert-line code { font-family: var(--sans); background: var(--sage-soft); color: var(--sage-deep); padding: 0.1em 0.5em; border-radius: 6px; font-size: 0.82rem; }
+
+  /* ---------- How it works ---------- */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.6rem; }
+  @media (max-width: 820px) { .steps { grid-template-columns: 1fr; } }
+  .step { padding-top: 1.4rem; border-top: 2px solid var(--sage-soft); }
+  .step .num { font-family: var(--serif); font-size: 2.6rem; color: var(--honey); line-height: 1; }
+  .step h3 { font-family: var(--sans); font-size: 1.1rem; font-weight: 600; margin-block: 0.6rem 0.5rem; }
+  .step p { color: var(--ink-soft); font-size: 0.95rem; }
+
+  /* ---------- Pricing ---------- */
+  .price-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; align-items: stretch; }
+  @media (max-width: 860px) { .price-grid { grid-template-columns: 1fr; } }
+  .plan {
+    border: 1px solid var(--hairline); border-radius: var(--radius-lg);
+    padding: 2rem clamp(1.6rem, 2.5vw, 2.2rem);
+    background: linear-gradient(180deg, var(--cream-card), #FBF5EC);
+    box-shadow: var(--shadow-soft);
+    display: flex; flex-direction: column;
+  }
+  .plan.feature { border-color: rgba(62,124,113,0.42); background: linear-gradient(180deg, rgba(62,124,113,0.10), var(--cream-card) 52%); box-shadow: var(--shadow-lift); }
+  .plan .tag { font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 600; color: var(--honey-deep); }
+  .plan.feature .tag { color: var(--sage-deep); }
+  .plan h3 { font-family: var(--serif); font-size: 1.5rem; margin-block: 0.6rem 0.3rem; }
+  .plan .amt { font-family: var(--serif); font-size: 2.4rem; margin-block: 0.8rem 0.2rem; color: var(--ink); }
+  .plan .amt span { font-family: var(--sans); font-size: 0.9rem; color: var(--ink-faint); font-weight: 400; }
+  .plan .sub { color: var(--ink-soft); font-size: 0.92rem; min-height: 2.8em; }
+  .plan ul { list-style: none; margin: 1.3rem 0 1.8rem; padding: 0; display: grid; gap: 0.75rem; }
+  .plan li { display: grid; grid-template-columns: auto 1fr; gap: 0.7rem; font-size: 0.93rem; color: var(--ink); }
+  .plan li svg { margin-top: 0.25em; flex: none; color: var(--sage); }
+  .plan .foot { margin-top: auto; }
+  .price-note { text-align: center; margin-top: 1.8rem; color: var(--ink-faint); font-size: 0.88rem; max-width: 60ch; margin-inline: auto; }
+
+  /* ---------- FAQ ---------- */
+  .faq { display: grid; gap: 0.9rem; max-width: 820px; }
+  details {
+    border: 1px solid var(--hairline); border-radius: var(--radius);
+    background: var(--cream-card); padding: 0.4rem 1.4rem;
+    box-shadow: 0 2px 10px rgba(43,48,46,0.04);
+    transition: border-color 200ms ease, box-shadow 200ms ease;
+  }
+  details[open] { border-color: var(--hairline-strong); box-shadow: var(--shadow-soft); }
+  summary {
+    cursor: pointer; list-style: none; padding-block: 1.1rem;
+    font-family: var(--serif); font-size: 1.15rem; font-weight: 500; color: var(--ink);
+    display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary .plus { flex: none; width: 22px; height: 22px; position: relative; transition: transform 300ms var(--ease); }
+  summary .plus::before, summary .plus::after { content: ""; position: absolute; background: var(--sage); border-radius: 2px; }
+  summary .plus::before { top: 10px; left: 2px; right: 2px; height: 2px; }
+  summary .plus::after { left: 10px; top: 2px; bottom: 2px; width: 2px; }
+  details[open] summary .plus { transform: rotate(135deg); }
+  details p { color: var(--ink-soft); padding-bottom: 1.2rem; font-size: 0.98rem; }
+
+  /* ---------- Final CTA ---------- */
+  .final { text-align: center; }
+  .final-card {
+    position: relative; overflow: hidden;
+    border: 1px solid var(--hairline-strong); border-radius: var(--radius-lg);
+    padding: clamp(2.5rem, 5vw, 4.5rem) 1.5rem;
+    background: radial-gradient(90% 130% at 50% 0%, rgba(224,162,60,0.16), transparent 58%), var(--cream-card);
+    box-shadow: var(--shadow-lift);
+  }
+  .final-card h2 { font-size: var(--text-h2); margin-bottom: 1rem; }
+  .final-card p { color: var(--ink-soft); max-width: 48ch; margin: 0 auto 2rem; }
+  .final-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+  /* ---------- Footer ---------- */
+  footer.site { border-top: 1px solid var(--hairline); padding-block: 3rem 2.5rem; color: var(--ink-faint); }
+  .foot-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2rem; margin-bottom: 2rem; }
+  .foot-brand { display: flex; align-items: center; gap: 0.6em; font-family: var(--serif); font-size: 1.2rem; color: var(--ink); }
+  .foot-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .foot-links a { font-size: 0.9rem; color: var(--ink-soft); transition: color 180ms ease; }
+  .foot-links a:hover { color: var(--ink); }
+  .disclaimer { font-size: 0.82rem; line-height: 1.65; max-width: 74ch; border-top: 1px solid var(--hairline); padding-top: 1.5rem; color: var(--ink-faint); }
+  .disclaimer strong { color: var(--ink-soft); }
+
+  /* ---------- Scroll reveal ---------- */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 700ms var(--ease), transform 700ms var(--ease); }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1 !important; transform: none !important; transition: none; }
+    .pulse { animation: none !important; }
+    .btn, .card, .badge, .proof, .plan { transition: none; }
+  }
+
+  .pulse { transform-box: fill-box; transform-origin: center; animation: pulse 3.4s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity: 0.25; transform: scale(0.96); } 50% { opacity: 0.85; transform: scale(1.04); } }
+
+  .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+</style>
+<script data-goatcounter="https://asmuelle.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+
+<a href="#main" class="visually-hidden">Skip to content</a>
+
+<!-- ===== Header ===== -->
+<header class="site">
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="KinSight home">
+      <svg class="mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <rect width="32" height="32" rx="9" fill="#F4ECE0"/>
+        <circle cx="16" cy="16" r="9.5" fill="none" stroke="#3E7C71" stroke-width="2.2"/>
+        <circle cx="16" cy="16" r="3.4" fill="#E0A23C"/>
+      </svg>
+      KinSight
+    </a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="#promise">Privacy</a>
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#get" class="nav-cta">Get KinSight</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <span id="top"></span>
+
+  <!-- ===== Hero ===== -->
+  <section class="hero" aria-labelledby="hero-heading">
+    <div class="wrap hero-grid">
+      <div class="hero-copy reveal">
+        <p class="eyebrow">On-device wellbeing monitoring</p>
+        <h1 id="hero-heading">A caring eye that <em>never leaves</em> the room.</h1>
+        <p class="lead">KinSight turns a spare phone into an all-local wellbeing monitor for an aging parent. It watches for falls and changes in daily routine on the device itself — and sends you a plain-text alert. The video stays in the room. Always.</p>
+
+        <div class="hero-actions">
+          <a class="badge" href="#" aria-label="Coming soon to the App Store">
+            <svg width="22" height="26" viewBox="0 0 22 26" fill="currentColor" aria-hidden="true">
+              <path d="M15.7 13.8c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.8-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.3-.9-1.7 0-3.3 1-4.2 2.5-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.5 1.3-.1 1.8-.8 3.3-.8 1.5 0 2 .8 3.3.8 1.4 0 2.3-1.2 3.1-2.5.6-.9.9-1.4 1.4-2.5-3.6-1.3-2.6-5.5-.9-5.8zM13.3 4.5c.7-.9 1.2-2.1 1-3.3-1 0-2.3.7-3 1.5-.7.8-1.3 2-1.1 3.2 1.1.1 2.3-.5 3.1-1.4z"/>
+            </svg>
+            <span><small>Coming soon to the</small><strong>App Store</strong></span>
+          </a>
+          <a class="btn btn-ghost" href="#promise">Why on-device?</a>
+        </div>
+
+        <div class="proof" role="note">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5L21 16z"/>
+          </svg>
+          <span><b>Provable in airplane mode.</b> Pull the SIM, cut the Wi-Fi, and KinSight keeps watching — only the text alert needs a connection. The video has nowhere to go.</span>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal">
+        <div class="scene">
+          <div class="glow"></div>
+          <!-- Signature: a wall-mounted phone seeing a calm room; insight radiates out, but a clear boundary keeps video inside the device -->
+          <svg viewBox="0 0 460 470" role="img" aria-label="A wall-mounted phone watching a calm room. A soft figure stands within the device's field of view; the raw view is enclosed by a boundary marked 'stays on this device', while a single text alert leaves as the only thing that travels." style="position:relative;z-index:1;width:100%;height:auto;">
+            <defs>
+              <radialGradient id="roomG" cx="50%" cy="40%" r="72%">
+                <stop offset="0%" stop-color="#FFFCF7"/>
+                <stop offset="70%" stop-color="#F7EFE3"/>
+                <stop offset="100%" stop-color="#EFE3D2"/>
+              </radialGradient>
+              <linearGradient id="phoneG" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#34655C"/>
+                <stop offset="100%" stop-color="#2E5D55"/>
+              </linearGradient>
+              <linearGradient id="coneG" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="rgba(224,162,60,0.34)"/>
+                <stop offset="100%" stop-color="rgba(224,162,60,0.04)"/>
+              </linearGradient>
+            </defs>
+
+            <!-- device boundary card -->
+            <rect x="26" y="40" width="408" height="330" rx="30" fill="url(#roomG)" stroke="rgba(62,124,113,0.30)" stroke-width="2"/>
+            <rect x="26" y="40" width="408" height="330" rx="30" fill="none" stroke="rgba(62,124,113,0.16)" stroke-width="10" stroke-dasharray="2 14" stroke-linecap="round"/>
+            <text x="230" y="66" text-anchor="middle" fill="#3E7C71" font-family="Inter, sans-serif" font-size="11" font-weight="600" letter-spacing="2.5">STAYS ON THIS DEVICE</text>
+
+            <!-- field of view cone from the phone -->
+            <path d="M96 132 L300 300 L96 320 Z" fill="url(#coneG)"/>
+
+            <!-- the watched figure (abstract, calm) -->
+            <g opacity="0.92">
+              <circle cx="248" cy="222" r="17" fill="#3E7C71"/>
+              <rect x="231" y="246" width="34" height="58" rx="16" fill="#3E7C71"/>
+              <!-- pose keypoints overlay -->
+              <g stroke="#E0A23C" stroke-width="2.4" fill="#E0A23C">
+                <circle cx="248" cy="218" r="3.2"/>
+                <circle cx="248" cy="252" r="3.2"/>
+                <circle cx="234" cy="266" r="3"/>
+                <circle cx="262" cy="266" r="3"/>
+                <circle cx="238" cy="300" r="3"/>
+                <circle cx="258" cy="300" r="3"/>
+                <line x1="248" y1="218" x2="248" y2="252"/>
+                <line x1="248" y1="252" x2="234" y2="266"/>
+                <line x1="248" y1="252" x2="262" y2="266"/>
+                <line x1="248" y1="252" x2="238" y2="300"/>
+                <line x1="248" y1="252" x2="258" y2="300"/>
+              </g>
+            </g>
+
+            <!-- the wall-mounted phone (the eye) -->
+            <g>
+              <rect x="70" y="108" width="44" height="78" rx="11" fill="url(#phoneG)" stroke="#234A43" stroke-width="1.5"/>
+              <rect x="76" y="118" width="32" height="58" rx="6" fill="#1E433C"/>
+              <circle class="pulse" cx="92" cy="147" r="13" fill="#E0A23C" opacity="0.4"/>
+              <circle cx="92" cy="147" r="6.5" fill="#F7EFE3"/>
+              <circle cx="92" cy="147" r="3" fill="#E0A23C"/>
+            </g>
+
+            <!-- the ONE thing that leaves: a text alert traveling out of the boundary -->
+            <g>
+              <path d="M360 250 q40 0 40 40 v40 q0 22 -22 22" fill="none" stroke="#3E7C71" stroke-width="2" stroke-dasharray="4 6" opacity="0.6"/>
+              <g transform="translate(330 230)">
+                <rect x="0" y="0" width="104" height="56" rx="14" fill="#FFFCF7" stroke="rgba(62,124,113,0.4)" stroke-width="1.6"/>
+                <circle cx="18" cy="18" r="6" fill="#E0A23C"/>
+                <rect x="32" y="13" width="58" height="6" rx="3" fill="rgba(43,48,46,0.55)"/>
+                <rect x="14" y="34" width="76" height="5" rx="2.5" fill="rgba(43,48,46,0.22)"/>
+                <rect x="14" y="44" width="50" height="5" rx="2.5" fill="rgba(43,48,46,0.22)"/>
+              </g>
+              <text x="382" y="378" text-anchor="middle" fill="#5B635F" font-family="Inter, sans-serif" font-size="10.5" letter-spacing="1.5">TEXT ALERT ONLY</text>
+            </g>
+
+            <!-- caption -->
+            <text x="230" y="430" text-anchor="middle" fill="#5B635F" font-family="Fraunces, serif" font-size="16" font-style="italic">The room is read here — and stays here.</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Privacy promise ===== -->
+  <section id="promise" class="promise section-pad" aria-labelledby="promise-heading">
+    <div class="wrap promise-grid">
+      <div class="reveal">
+        <p class="eyebrow">The promise</p>
+        <h2 id="promise-heading" class="visually-hidden">Why on-device matters</h2>
+        <blockquote>Raw video <span class="hl">never exists</span> off the phone.</blockquote>
+        <p class="lead" style="margin-top:1.5rem; max-width:44ch;">The reason families reject in-home cameras is simple: they don't want a live feed of a parent's bedroom sitting on someone's server. KinSight's answer is to never create that feed in the first place. The camera frames are read where they're captured, then discarded. Only words travel.</p>
+      </div>
+      <ul class="promise-list reveal">
+        <li>
+          <span class="ico">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 8.5 8 11 4.6-2.5 8-6 8-11V5l-8-3z" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M9 12l2 2 4-4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <div><h3>No video path, anywhere</h3><p>There is no streaming, no recording uploaded, no cloud clip library. KinSight has no server that can hold a frame of your parent's home — because the architecture never sends one.</p></div>
+        </li>
+        <li>
+          <span class="ico">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2v8M12 14h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M5 9.5l-1.6 9.2A2 2 0 0 0 5.4 21h13.2a2 2 0 0 0 2-2.3L19 9.5" stroke="currentColor" stroke-width="1.6"/><path d="M8 9.5a4 4 0 0 1 8 0" stroke="currentColor" stroke-width="1.6"/></svg>
+          </span>
+          <div><h3>Only a sentence leaves</h3><p>When something matters, the device sends a short text alert and a daily routine summary — written from event metadata, not images. That tiny, human-readable message is the entire data footprint.</p></div>
+        </li>
+        <li>
+          <span class="ico">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 7l9-4 9 4M3 7v6c0 .8.5 1.5 1.2 1.8L12 18l7.8-3.2c.7-.3 1.2-1 1.2-1.8V7M3 7l9 4 9-4" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M4 7l16 10" stroke="#E0A23C" stroke-width="1.9" stroke-linecap="round"/></svg>
+          </span>
+          <div><h3>Audit it yourself</h3><p>Don't take our word for it. Put a network monitor in front of the phone and you'll see no media uplink — ever. Trust you can verify is the only kind worth offering for a parent's home.</p></div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== Features ===== -->
+  <section id="features" class="section-pad" aria-labelledby="features-heading">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">What KinSight watches for</p>
+        <h2 id="features-heading">Quiet awareness of the everyday — not a surveillance feed.</h2>
+        <p>KinSight is built to notice the things that signal someone needs a hand: a fall, a long stretch of stillness, a morning where the kitchen never got a visit. All of it reasoned about on the device, in plain language.</p>
+      </div>
+
+      <div class="bento">
+        <article class="card col-3 reveal">
+          <span class="kicker">Movement &amp; posture</span>
+          <h3>Fall &amp; immobility awareness</h3>
+          <p>On-device pose estimation follows posture and motion in real time. A sudden collapse or an unusual stretch of stillness raises a candidate event — checked on the phone before anyone is alerted, to keep false alarms low.</p>
+          <div class="visual cluster">
+            <span class="chip on">Standing</span><span class="chip">Seated</span><span class="chip warn">Sudden fall · checking</span>
+          </div>
+        </article>
+
+        <article class="card col-3 reveal">
+          <span class="kicker">Daily rhythm</span>
+          <h3>Routine, not a livestream</h3>
+          <p>The primary signal isn't drama — it's deviation. Missed kitchen visits can mean missed meals; a skipped morning can mean a hard night. KinSight learns the ordinary shape of a day and flags when it quietly changes.</p>
+          <div class="visual routine" aria-hidden="true">
+            <div class="routine-row"><span>Kitchen</span><div class="routine-track"><div class="routine-fill" style="width:78%"></div></div></div>
+            <div class="routine-row"><span>Living room</span><div class="routine-track"><div class="routine-fill" style="width:64%"></div></div></div>
+            <div class="routine-row"><span>Today</span><div class="routine-track"><div class="routine-fill low" style="width:31%"></div></div></div>
+          </div>
+        </article>
+
+        <article class="card col-4 reveal">
+          <span class="kicker">On-device verification</span>
+          <h3>A second look that crushes false alarms — locally</h3>
+          <p>A candidate event isn't an alert yet. A small on-device vision model re-checks the moment to tell "fallen on the floor" from "lying on the couch" before it ever reaches you. That verification runs on the phone, on the frame, and then the frame is gone. Nothing is uploaded for a human or a data-center model to review.</p>
+          <div class="visual alert-prev">
+            <div class="alert-line"><span class="pip h"></span> Candidate detected <code>14:06</code></div>
+            <div class="alert-line"><span class="pip s"></span> Verified on-device — true event</div>
+            <div class="alert-line"><span class="pip s"></span> Sending text alert · frame discarded</div>
+          </div>
+        </article>
+
+        <article class="card col-2 accent reveal">
+          <span class="kicker">Zero hardware</span>
+          <h3>Your old phone is the device</h3>
+          <p>Mount a phone you already own on the wall, plug it in, and it becomes the monitor. No new camera, no install fee, no box to ship.</p>
+        </article>
+
+        <article class="card col-6 reveal">
+          <span class="kicker">For the caregiver</span>
+          <h3>A daily wellbeing digest, written for the person who worries</h3>
+          <p>Each day, the caregiver's own phone composes a calm summary from event metadata — "active morning, normal kitchen visits, restful afternoon" — so checking in feels reassuring instead of intrusive. When something genuinely needs attention, the alert is immediate and clear. You stay close to your parent's day without watching it.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider" aria-hidden="true">
+    <span class="line"></span><span class="dot"></span><span class="line"></span>
+  </div>
+
+  <!-- ===== How it works ===== -->
+  <section id="how" class="section-pad" aria-labelledby="how-heading">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">How it works</p>
+        <h2 id="how-heading">Three steps. None of them ship a single frame.</h2>
+      </div>
+      <div class="steps">
+        <div class="step reveal">
+          <div class="num">01</div>
+          <h3>Mount a spare phone</h3>
+          <p>Stand or wall-mount a phone you already have in a shared room, keep it on the charger, and pair it to your phone once. That's the whole setup.</p>
+        </div>
+        <div class="step reveal">
+          <div class="num">02</div>
+          <h3>The device watches, on the device</h3>
+          <p>Pose and motion analysis, routine learning, and event verification all run locally on the mounted phone. Frames are read and discarded as they come — never stored, never sent.</p>
+        </div>
+        <div class="step reveal">
+          <div class="num">03</div>
+          <h3>You get words, not windows</h3>
+          <p>A clear text alert for anything urgent, and a gentle daily digest the rest of the time. You can confirm the whole thing in airplane mode: the watching never stops when the network does.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Pricing ===== -->
+  <section id="pricing" class="promise section-pad" aria-labelledby="pricing-heading">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Pricing</p>
+        <h2 id="pricing-heading">Priced below the pendant your parent won't wear.</h2>
+        <p>Medical-alert services run $33–45 a month and still depend on someone pressing a button. KinSight is always watching, needs no new hardware, and starts with a real 30-day trial — because trust is the whole decision.</p>
+      </div>
+
+      <div class="price-grid">
+        <div class="plan reveal">
+          <span class="tag">One household</span>
+          <h3>Monthly</h3>
+          <div class="amt">$19.99<span> / month</span></div>
+          <p class="sub">One parent, one room, full on-device monitoring. Cancel anytime.</p>
+          <ul>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Fall &amp; immobility awareness</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Daily routine digest</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>On-device verification, no cloud</li>
+          </ul>
+          <div class="foot"><a class="btn btn-ghost" href="#" aria-label="Coming soon to the App Store" style="width:100%; justify-content:center;">Coming soon</a></div>
+        </div>
+
+        <div class="plan feature reveal">
+          <span class="tag">30-day trial, then yearly</span>
+          <h3>Household</h3>
+          <div class="amt">$149<span> / year</span></div>
+          <p class="sub">The same monitoring, billed yearly — the way most families choose to give it. Try it free for 30 days.</p>
+          <ul>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Everything in Monthly</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Two months free vs. monthly</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Full 30-day free trial</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Priority caregiver support</li>
+          </ul>
+          <div class="foot"><a class="btn btn-primary" href="#" aria-label="Coming soon to the App Store" style="width:100%; justify-content:center;">Start trial soon</a></div>
+        </div>
+
+        <div class="plan reveal">
+          <span class="tag">Yearly</span>
+          <h3>Family</h3>
+          <div class="amt">$249<span> / year</span></div>
+          <p class="sub">For multiple rooms or more than one parent — two to four spare phones under one plan.</p>
+          <ul>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Everything in Household</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Multi-room &amp; multi-parent</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Shared alerts across siblings</li>
+          </ul>
+          <div class="foot"><a class="btn btn-ghost" href="#" aria-label="Coming soon to the App Store" style="width:100%; justify-content:center;">Coming soon</a></div>
+        </div>
+      </div>
+      <p class="price-note">Prices shown for reference ahead of launch. An optional monitored-response add-on (24/7 emergency line) is planned for families who want a staffed escalation path. KinSight runs on a spare phone — there is no hardware to buy.</p>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section id="faq" class="section-pad" aria-labelledby="faq-heading">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Questions</p>
+        <h2 id="faq-heading">The honest answers families ask first.</h2>
+      </div>
+      <div class="faq reveal">
+        <details open>
+          <summary>Does anything leave my parent's device?<span class="plus" aria-hidden="true"></span></summary>
+          <p>Only a short text alert and a daily routine summary, both written from event metadata — never images. Camera frames are analyzed on the mounted phone and then discarded; there is no recording uploaded, no clip library, and no KinSight server that holds video. You can confirm it: put a network monitor in front of the phone and you'll see no media uplink. With the network off, the watching continues — only the outbound text needs a connection.</p>
+        </details>
+        <details>
+          <summary>Is this a medical alert or guaranteed fall detection?<span class="plus" aria-hidden="true"></span></summary>
+          <p>No. KinSight is a best-effort wellbeing and routine-awareness tool, not a medical device or a guaranteed life-safety system. It does not replace a monitored medical-alert service or emergency care, and like any camera-based system it has real limits — it can't see in the dark or in rooms where a camera doesn't belong. Treat fall alerts as a helpful heads-up, not a guarantee, and keep an emergency plan in place.</p>
+        </details>
+        <details>
+          <summary>What phone do I need, and where does it go?<span class="plus" aria-hidden="true"></span></summary>
+          <p>A spare phone you already own, kept on its charger and mounted in a shared living space — typically a living room or kitchen, the daytime rooms where routine matters most. Newer phones run the on-device verification model more reliably; on older or lower-memory devices, KinSight falls back to lighter detection. We'll publish a clear device-compatibility list at launch so you know what your drawer phone can do.</p>
+        </details>
+        <details>
+          <summary>Will it work without good internet at my parent's place?<span class="plus" aria-hidden="true"></span></summary>
+          <p>The monitoring itself needs no internet at all — all the analysis happens on the device. A connection is only used to deliver the outbound text alert and daily digest. If you have any signal at the home, even a basic one, the alerts get through; the heavy lifting never depended on the network in the first place.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Final CTA ===== -->
+  <section id="get" class="section-pad final" aria-labelledby="get-heading">
+    <div class="wrap">
+      <div class="final-card reveal">
+        <p class="eyebrow" style="justify-content:center;">KinSight</p>
+        <h2 id="get-heading">Peace of mind that stays in the room.</h2>
+        <p>Give an aging parent the quiet safety net of an always-watching device — without giving up the privacy that made you say no to cameras in the first place.</p>
+        <div class="final-actions">
+          <a class="badge" href="#" aria-label="Coming soon to the App Store">
+            <svg width="22" height="26" viewBox="0 0 22 26" fill="currentColor" aria-hidden="true">
+              <path d="M15.7 13.8c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.8-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.3-.9-1.7 0-3.3 1-4.2 2.5-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.5 1.3-.1 1.8-.8 3.3-.8 1.5 0 2 .8 3.3.8 1.4 0 2.3-1.2 3.1-2.5.6-.9.9-1.4 1.4-2.5-3.6-1.3-2.6-5.5-.9-5.8zM13.3 4.5c.7-.9 1.2-2.1 1-3.3-1 0-2.3.7-3 1.5-.7.8-1.3 2-1.1 3.2 1.1.1 2.3-.5 3.1-1.4z"/>
+            </svg>
+            <span><small>Coming soon to the</small><strong>App Store</strong></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ===== Footer ===== -->
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <svg width="26" height="26" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <rect width="32" height="32" rx="9" fill="#F4ECE0"/>
+          <circle cx="16" cy="16" r="9.5" fill="none" stroke="#3E7C71" stroke-width="2.2"/>
+          <circle cx="16" cy="16" r="3.4" fill="#E0A23C"/>
+        </svg>
+        KinSight
+      </div>
+      <nav class="foot-links" aria-label="Footer">
+        <a href="#promise">Privacy</a>
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <a href="#" aria-label="Coming soon to the App Store">Get the app</a>
+      </nav>
+    </div>
+    <p class="disclaimer">
+      KinSight is a personal wellbeing and routine-awareness tool. It is <strong>not a medical device</strong>, not a guaranteed fall-detection or life-safety system, and not a substitute for a monitored medical-alert service, professional caregiving, or emergency response. Like any camera-based system it has limits — including low-light conditions and rooms where a camera is not appropriate — and alerts are best-effort, not assured. KinSight should never be relied upon as the sole means of protecting a vulnerable person; always keep an independent emergency plan in place and consult qualified professionals about a parent's care.
+      <br /><br />
+      © 2026 KinSight. Built so a parent's home stays a parent's home — the video never leaves the room.
+    </p>
+  </div>
+</footer>
+
+<script>
+  // Scroll-reveal, gated on reduced-motion. No external deps.
+  (function () {
+    var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var els = document.querySelectorAll('.reveal');
+    if (prefersReduced || !('IntersectionObserver' in window)) {
+      els.forEach(function (el) { el.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    els.forEach(function (el) { io.observe(el); });
+  })();
+</script>
+</body>
+</html>

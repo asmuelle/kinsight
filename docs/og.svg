@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="KinSight — a caring eye that never leaves the room. On-device wellbeing monitoring; the video stays in the room.">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FCF8F1"/>
+      <stop offset="60%" stop-color="#F7EFE3"/>
+      <stop offset="100%" stop-color="#EFE3D2"/>
+    </linearGradient>
+    <radialGradient id="honeyglow" cx="78%" cy="20%" r="60%">
+      <stop offset="0%" stop-color="rgba(224,162,60,0.22)"/>
+      <stop offset="100%" stop-color="rgba(224,162,60,0)"/>
+    </radialGradient>
+    <radialGradient id="sageglow" cx="10%" cy="90%" r="55%">
+      <stop offset="0%" stop-color="rgba(62,124,113,0.16)"/>
+      <stop offset="100%" stop-color="rgba(62,124,113,0)"/>
+    </radialGradient>
+    <linearGradient id="phoneG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#34655C"/>
+      <stop offset="100%" stop-color="#2E5D55"/>
+    </linearGradient>
+    <linearGradient id="coneG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(224,162,60,0.32)"/>
+      <stop offset="100%" stop-color="rgba(224,162,60,0.03)"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#honeyglow)"/>
+  <rect width="1200" height="630" fill="url(#sageglow)"/>
+
+  <!-- Left: copy -->
+  <g font-family="Inter, system-ui, sans-serif">
+    <!-- brand mark + name -->
+    <g transform="translate(90 86)">
+      <rect width="56" height="56" rx="16" fill="#F4ECE0" stroke="rgba(43,48,46,0.10)"/>
+      <circle cx="28" cy="28" r="17" fill="none" stroke="#3E7C71" stroke-width="4"/>
+      <circle cx="28" cy="28" r="6" fill="#E0A23C"/>
+      <text x="76" y="40" font-size="32" font-weight="600" fill="#2B302E" font-family="Fraunces, Georgia, serif">KinSight</text>
+    </g>
+
+    <!-- eyebrow -->
+    <text x="92" y="206" font-size="20" font-weight="600" letter-spacing="4" fill="#3E7C71">ON-DEVICE WELLBEING MONITORING</text>
+
+    <!-- headline -->
+    <text font-family="Fraunces, Georgia, serif" fill="#2B302E" font-weight="500">
+      <tspan x="90" y="288" font-size="68">A caring eye that</tspan>
+      <tspan x="90" y="364" font-size="68">never leaves <tspan fill="#3E7C71" font-style="italic">the room.</tspan></tspan>
+    </text>
+
+    <!-- subline -->
+    <text x="92" y="430" font-size="25" fill="#5B635F">Turn a spare phone into an all-local monitor for</text>
+    <text x="92" y="464" font-size="25" fill="#5B635F">an aging parent. The video never leaves the device.</text>
+
+    <!-- proof chip -->
+    <g transform="translate(90 506)">
+      <rect width="430" height="56" rx="14" fill="rgba(62,124,113,0.12)" stroke="rgba(62,124,113,0.28)"/>
+      <path d="M34 36v-2.5l-10-6.2V13a1.7 1.7 0 0 0-3.4 0v8.3l-10 6.2V30l10-3.1V37l-2.5 1.9V41l4.2-1.2 4.2 1.2v-2.1L30 37v-7l10 6z" fill="#3E7C71" transform="translate(6 -2)"/>
+      <text x="54" y="35" font-size="19" fill="#2B302E" font-weight="600">Provable in airplane mode</text>
+    </g>
+  </g>
+
+  <!-- Right: signature visual — device boundary, room, the eye, one text leaving -->
+  <g transform="translate(690 110)">
+    <rect x="0" y="0" width="420" height="340" rx="30" fill="#FFFCF7" stroke="rgba(62,124,113,0.30)" stroke-width="2.5"/>
+    <rect x="0" y="0" width="420" height="340" rx="30" fill="none" stroke="rgba(62,124,113,0.16)" stroke-width="11" stroke-dasharray="2 15" stroke-linecap="round"/>
+    <text x="210" y="34" text-anchor="middle" fill="#3E7C71" font-family="Inter, sans-serif" font-size="13" font-weight="600" letter-spacing="3">STAYS ON THIS DEVICE</text>
+
+    <!-- field of view -->
+    <path d="M78 116 L290 280 L78 296 Z" fill="url(#coneG)"/>
+
+    <!-- watched figure with pose keypoints -->
+    <g>
+      <circle cx="238" cy="200" r="18" fill="#3E7C71"/>
+      <rect x="220" y="226" width="36" height="62" rx="17" fill="#3E7C71"/>
+      <g stroke="#E0A23C" stroke-width="2.6" fill="#E0A23C">
+        <line x1="238" y1="198" x2="238" y2="232"/>
+        <line x1="238" y1="232" x2="224" y2="248"/>
+        <line x1="238" y1="232" x2="252" y2="248"/>
+        <line x1="238" y1="232" x2="228" y2="284"/>
+        <line x1="238" y1="232" x2="248" y2="284"/>
+        <circle cx="238" cy="198" r="3.4"/><circle cx="238" cy="232" r="3.4"/>
+        <circle cx="224" cy="248" r="3"/><circle cx="252" cy="248" r="3"/>
+        <circle cx="228" cy="284" r="3"/><circle cx="248" cy="284" r="3"/>
+      </g>
+    </g>
+
+    <!-- the phone "eye" -->
+    <g transform="translate(52 92)">
+      <rect x="0" y="0" width="48" height="84" rx="12" fill="url(#phoneG)" stroke="#234A43" stroke-width="1.6"/>
+      <rect x="6" y="11" width="36" height="62" rx="7" fill="#1E433C"/>
+      <circle cx="24" cy="42" r="14" fill="#E0A23C" opacity="0.4"/>
+      <circle cx="24" cy="42" r="7" fill="#F7EFE3"/>
+      <circle cx="24" cy="42" r="3.2" fill="#E0A23C"/>
+    </g>
+  </g>
+
+  <!-- the one thing that leaves: a text bubble crossing out of the boundary -->
+  <g transform="translate(1004 426)">
+    <rect x="0" y="0" width="120" height="64" rx="16" fill="#FFFCF7" stroke="rgba(62,124,113,0.4)" stroke-width="1.8"/>
+    <circle cx="22" cy="22" r="7" fill="#E0A23C"/>
+    <rect x="38" y="16" width="66" height="7" rx="3.5" fill="rgba(43,48,46,0.55)"/>
+    <rect x="16" y="40" width="88" height="6" rx="3" fill="rgba(43,48,46,0.22)"/>
+    <rect x="16" y="52" width="58" height="6" rx="3" fill="rgba(43,48,46,0.22)"/>
+    <text x="60" y="92" text-anchor="middle" fill="#5B635F" font-family="Inter, sans-serif" font-size="13" letter-spacing="1.5">TEXT ALERT ONLY</text>
+  </g>
+</svg>
