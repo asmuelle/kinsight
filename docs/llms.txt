@@ -1,0 +1,40 @@
+# KinSight
+
+> KinSight turns a spare phone into an all-local wellbeing monitor for an aging parent. It watches for falls and changes in daily routine on the device itself and sends a plain-text alert — raw video never exists off the phone. The privacy promise is provable in airplane mode.
+
+## What it is
+
+KinSight is an on-device wellbeing monitoring app. A spare phone you already own is mounted in a shared room and becomes the monitor. On-device pose estimation, routine learning, and event verification all run locally on the mounted phone. Camera frames are read where they're captured and then discarded — there is no streaming, no recording uploaded, no cloud clip library, and no server that holds a frame of the home. Only a short, human-readable text alert and a daily routine summary, written from event metadata, ever leave the device.
+
+## Who it's for
+
+Families caring for an aging parent who want a safety net without the intrusion of in-home cameras — people who said no to a live feed of a parent's bedroom sitting on someone's server. It suits caregivers who want to stay close to a parent's day without watching it.
+
+## Key features
+
+- Fall & immobility awareness: on-device pose estimation follows posture and motion in real time; a sudden collapse or unusual stillness raises a candidate event, checked on the phone to keep false alarms low.
+- Routine, not a livestream: KinSight learns the ordinary shape of a day and flags deviations, such as missed kitchen visits or a skipped morning.
+- On-device verification: a small on-device vision model re-checks a candidate moment (for example, "fallen on the floor" vs. "lying on the couch") before alerting; the frame is then discarded and nothing is uploaded.
+- Zero new hardware: an old phone you already own is the device — no new camera, no install fee, no box to ship.
+- Daily wellbeing digest: the caregiver's phone composes a calm daily summary from event metadata, with immediate, clear alerts when something needs attention.
+
+## Pricing
+
+Prices shown for reference ahead of launch.
+
+- Monthly — $19.99 / month. One parent, one room, full on-device monitoring. Cancel anytime. Includes fall & immobility awareness, daily routine digest, and on-device verification with no cloud.
+- Household — $149 / year (30-day free trial, then yearly). Everything in Monthly, two months free vs. monthly, full 30-day free trial, and priority caregiver support.
+- Family — $249 / year. Everything in Household, plus multi-room & multi-parent support (two to four spare phones under one plan) and shared alerts across siblings.
+
+An optional monitored-response add-on (24/7 emergency line) is planned. KinSight runs on a spare phone — there is no hardware to buy. Medical-alert services typically run $33–45 a month.
+
+## FAQ highlights
+
+- Does anything leave my parent's device? Only a short text alert and a daily routine summary, written from event metadata — never images. Frames are analyzed on the phone and discarded; no media uplink, verifiable with a network monitor.
+- Is this a medical alert or guaranteed fall detection? No. KinSight is a best-effort wellbeing and routine-awareness tool, not a medical device or guaranteed life-safety system; keep an independent emergency plan in place.
+- What phone do I need, and where does it go? A spare phone you already own, on its charger, mounted in a shared living space such as a living room or kitchen. Newer phones run the verification model more reliably; a device-compatibility list will be published at launch.
+- Will it work without good internet? The monitoring needs no internet — all analysis happens on the device. A connection is only used to deliver the outbound text alert and daily digest.
+
+## Link
+
+- Landing page: https://asmuelle.github.io/kinsight/
