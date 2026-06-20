@@ -1,5 +1,7 @@
 # KinSight
 
+[![CI](https://github.com/asmuelle/kinsight/actions/workflows/ci.yml/badge.svg)](https://github.com/asmuelle/kinsight/actions/workflows/ci.yml)
+
 > Turn any spare phone into an all-local fall and anomaly monitor for aging parents — only text alerts ever leave the device; raw video never exists off it.
 
 **Category:** Edge AI / on-device inference (iOS + Android) · **Status:** 🟡 Runner-up — viable with caveats
