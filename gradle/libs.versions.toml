@@ -3,7 +3,7 @@
 # (the runtime is on-device only; frontier models are dev-time only).
 
 [versions]
-kotlin = "2.4.0"
+kotlin = "2.4.10"
 agp = "9.2.1"
 junit = "6.1.0"
 ktlintGradle = "14.2.0"
